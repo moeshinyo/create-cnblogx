@@ -79,7 +79,7 @@ function fatalError(info: string): never {
 }
 
 async function doSomething(desc: string, thing:  () => Promise<boolean | void>): Promise<void> {
-    const dots = ora(desc).start();
+    const dots = ora(`${desc}\n`).start();
     const res = await thing();
 
     if (res === true || res === undefined) {
