@@ -1,0 +1,3 @@
+[submodule "starters/cnblogx-starter"]
+	path = starters/cnblogx-starter
+	url = https://github.com/moeshinyo/cnblogx-starter.git
