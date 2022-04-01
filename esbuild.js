@@ -7,7 +7,7 @@ const script = esbuild.buildSync({
     minify: true,
     platform: 'node',
     write: false,
-    target: ['node14']
+    target: ['node12']
 });
 
 (async () => {

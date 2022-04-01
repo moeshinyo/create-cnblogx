@@ -33,7 +33,7 @@ async function main(opt_name?: string) {
         await fsp.writeFile(path_config, config.replace('\"cnblogx-starter\"', JSON.stringify(project_name)));
     });
 
-    printGuide(project_name);
+    printGuide(opt_name);
 }
 
 async function ensureDest(project_name?: string): Promise<[string, string]> {
