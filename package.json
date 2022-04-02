@@ -1,6 +1,6 @@
 {
   "name": "create-cnblogx",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "The initializer for cnblogs-custom-template. ",
   "main": "dist/index.js",
   "scripts": {
