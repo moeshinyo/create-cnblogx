@@ -13,7 +13,13 @@ async function main(opt_name?: string) {
     let dst: string;
     let project_name: string;
 
-    await doSomething('Checking directories', async () => {
+    await doSomething('Checking metadata', async () => {
+        if (!await checkName(opt_name)) {
+            fatalError(`The project name is't a valid package name. `);
+        }
+    });
+
+    await doSomething('Creating directories', async () => {
         src = path.resolve(__dirname, '../starters/cnblogx-starter');
 
         if (!fs.existsSync(src)) {
@@ -34,6 +40,13 @@ async function main(opt_name?: string) {
     });
 
     printGuide(opt_name);
+}
+
+async function checkName(opt_name?: string): Promise<boolean> {
+    if (typeof opt_name === 'string') {
+        return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(opt_name);
+    }
+    return true;
 }
 
 async function ensureDest(project_name?: string): Promise<[string, string]> {
@@ -79,7 +92,7 @@ function fatalError(info: string): never {
 }
 
 async function doSomething(desc: string, thing:  () => Promise<boolean | void>): Promise<void> {
-    const dots = ora(`${desc}\n`).start();
+    const dots = ora(`${desc}...\n`).start();
     const res = await thing();
 
     if (res === true || res === undefined) {

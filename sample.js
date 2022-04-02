@@ -15,7 +15,7 @@ const child_process = require('child_process');
         }) 
     });
 
-    child_process.fork('../dist/index.js',['redtheme'], {
+    child_process.fork('../dist/index.js',['redheme'], {
         cwd: 'sample', 
     });
     
