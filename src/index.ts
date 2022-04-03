@@ -13,13 +13,13 @@ async function main(opt_name?: string) {
     let dst: string;
     let project_name: string;
 
-    await doSomething('Checking metadata', async () => {
+    await doSomething('检查项目元数据', async () => {
         if (!await checkName(opt_name)) {
-            fatalError(`The project name is't a valid package name. `);
+            fatalError(`项目名称不合法。`);
         }
     });
 
-    await doSomething('Creating directories', async () => {
+    await doSomething('建立项目文件夹', async () => {
         src = path.resolve(__dirname, '../starters/cnblogx-starter');
 
         if (!fs.existsSync(src)) {
@@ -29,11 +29,11 @@ async function main(opt_name?: string) {
         [dst, project_name] = await ensureDest(opt_name);
     });
     
-    await doSomething('Copying files', async () => {
+    await doSomething('复制文件', async () => {
         await copyProject(src, dst);
     });
     
-    await doSomething('Initializing metadata', async () => {
+    await doSomething('初始化项目元数据', async () => {
         const path_config = path.resolve(dst, 'package.json');
         const config = (await fsp.readFile(path_config)).toString();
         await fsp.writeFile(path_config, config.replace('\"cnblogx-starter\"', JSON.stringify(project_name)));
@@ -58,19 +58,19 @@ async function ensureDest(project_name?: string): Promise<[string, string]> {
         const stat = await fsp.stat(dst, );
 
         if (!stat.isDirectory()) {
-            fatalError('Target directory is not a directory. ');
+            fatalError('目标文件夹已被占用。');
         }
 
     } catch (_)  {
         try {
             await fsp.mkdir(dst);
         } catch (_) {
-            fatalError('Failed to resolve target directory. ');
+            fatalError('建立项目文件夹失败。');
         }
     }
     
     if ((await fsp.readdir(dst)).length > 0) {
-        fatalError('Target directory is not empty. ');
+        fatalError('目标文件夹已存在且非空。');
     }
 
     return [dst, path.basename(dst)];
@@ -82,12 +82,12 @@ async function copyProject(src: string, dst: string): Promise<void> {
             overwrite: true, 
         });
     } catch (_) {
-        fatalError(`Failed to copy template files from '${src}' to '${dst}'. `);
+        fatalError(`复制文件失败（'${src}' -> '${dst}'）。`);
     }
 }
 
 function fatalError(info: string): never {
-    console.log(chalk.red('Fatal Error: '), info, '\n');
+    console.log(chalk.red('致命错误: '), info, '\n');
     process.exit(-1)
 }
 
@@ -96,21 +96,21 @@ async function doSomething(desc: string, thing:  () => Promise<boolean | void>):
     const res = await thing();
 
     if (res === true || res === undefined) {
-        dots.succeed(`${desc}... Done`);
+        dots.succeed(`${desc}... 完成`);
     } else {
         dots.fail();
     }
 }
 
 function internalError(code: string): never {
-    fatalError(`An internal error (${code}) occured, this is a bug.`)
+    fatalError(`出现了一个内部错误 (${code})，这是一个Bug，欢迎反馈。`)
 }
 
 function printGuide(opt_name?: string) {
-    console.log("Now run: \n");
+    console.log("现在可以尝试: \n");
     printCode(`cd ${opt_name}`, opt_name !== undefined);
-    printCode(`npm install (or \`yarn install\`)`);
-    printCode(`npm run dev (or \`yarn dev\`)`);
+    printCode(`npm install (或 \`yarn install\`)`);
+    printCode(`npm run dev (或 \`yarn dev\`)`);
     console.log("\n");
 }
 
@@ -124,7 +124,6 @@ function printCode(cmd: string, cond: boolean = true, indent: number = 4) {
 new Command()
     .name('create-cnblogx')
     .description('CLI to start a new customization script project for cnblogs. ')
-    .version('1.0.0')
     .argument('[project-name]', 'name of the new project')
     .action(async (project_name?: string) => {
         await main(project_name);
