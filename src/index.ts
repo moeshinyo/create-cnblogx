@@ -36,7 +36,7 @@ async function main(opt_name?: string) {
     await doSomething('初始化项目元数据', async () => {
         const path_config = path.resolve(dst, 'package.json');
         const config = (await fsp.readFile(path_config)).toString();
-        await fsp.writeFile(path_config, config.replace('\"cnblogx-starter\"', JSON.stringify(project_name)));
+        await fsp.writeFile(path_config, config.replace('\'cnblogx-starter\'', JSON.stringify(project_name)));
     });
 
     printGuide(opt_name);
@@ -107,11 +107,11 @@ function internalError(code: string): never {
 }
 
 function printGuide(opt_name?: string) {
-    console.log("现在可以尝试: \n");
+    console.log('现在可以尝试: \n');
     printCode(`cd ${opt_name}`, opt_name !== undefined);
     printCode(`npm install (或 \`yarn install\`)`);
     printCode(`npm run dev (或 \`yarn dev\`)`);
-    console.log("\n");
+    console.log('\n');
 }
 
 function printCode(cmd: string, cond: boolean = true, indent: number = 4) {
