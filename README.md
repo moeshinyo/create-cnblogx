@@ -28,6 +28,11 @@ npm init cnblogx
 
 ---
 
+# 相关项目
+
+- [CNBlogX-Starter](<https://github.com/moeshinyo/cnblogx-starter>)：默认的CNBlogX项目模板，基于Webpack。
+- [Monomorphization](<https://github.com/moeshinyo/monomorphization>)：一个简单的博客园皮肤扩展，基于CNBlogX与[Simple Memory](https://www.cnblogs.com/SkinUser.aspx?SkinName=SimpleMemory)。
+
 # 构建脚手架
 
 通过以下命令构建该脚手架：
