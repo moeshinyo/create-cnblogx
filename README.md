@@ -2,7 +2,7 @@
 
 ---
 
-[CNBlogX](<https://github.com/search?q=user%3Amoeshinyo+topic%3Acnblogx>)是一套项目模板及脚手架的合集，用于快速搭建博客园的页面定制脚本开发环境，阅读[博文][cnblogx_blog]以了解更多。
+[CNBlogX](<https://github.com/topics/cnblogx>)是一套项目模板及脚手架的合集，用于快速搭建博客园的页面定制脚本开发环境，阅读[博文][cnblogx_blog]以了解更多。
 
 [cnblogx_blog]: https://www.cnblogs.com/immx/p/cnblogx.html
 
